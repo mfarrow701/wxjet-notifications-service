@@ -7,7 +7,7 @@ const app = require('express')(),
 io.set('origins', '*:*');
 server.listen(3001);
 
-const warnings = ['Cloud', 'Wind', 'Visibility'], conditions = ['dry', 'damp', 'wet', 'flooded'],
+const warnings = ['Rain', 'Wind', 'Visibility'], conditions = ['dry', 'damp', 'wet', 'flooded'],
     warningStates = ['#9932CC', '#FF0000', '#FF8C00', '#008000'], conditionStates = ['#ff1493', '#40e0d0', '#ff9800', '#607d8b'];
 
 app.get('/', (req, res) => {
