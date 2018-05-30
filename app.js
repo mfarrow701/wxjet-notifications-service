@@ -8,15 +8,38 @@ io.set('origins', '*:*');
 server.listen(3001);
 
 const warnings = ['Rain', 'Wind', 'Visibility'], conditions = ['dry', 'damp', 'wet', 'flooded'],
-    warningStates = ['#9932CC', '#FF0000', '#FF8C00', '#008000'], conditionStates = ['#ff1493', '#40e0d0', '#ff9800', '#607d8b'];
+    warningStates = ['#9932CC', '#FF0000', '#FF8C00', '#008000'],
+    conditionStates = ['#ff1493', '#40e0d0', '#ff9800', '#607d8b'],
+    alerts = [{
+        type: 'Cat 1 alert',
+        colourState: 'pink',
+        value: Math.ceil((Math.floor(Math.random() * 7000)) / 100) * 100
+    }, {
+        type: 'Cat 2 alert',
+        colourState: 'purple',
+        value: Math.ceil((Math.floor(Math.random() * 7000)) / 100) * 100
+    }, {
+        type: 'Cat 3 alert',
+        colourState: 'indigo',
+        value: Math.ceil((Math.floor(Math.random() * 7000)) / 100) * 100
+    }];
 
 app.get('/', (req, res) => {
     res.send('<h1>WxJet Notifications Service</h1>')
 });
 
+app.get('/poll-notifications', (req, res) => {
+    console.log('An application has subscribed to the poll notifications service');
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Content-Type', 'application/json');
+    res.header('Cache-Control', 'no-cache');
+    res.send(alerts[Math.floor(Math.random() * alerts.length)])
+});
+
 app.get('/sse-notifications', (req, res) => {
     console.log('An application has subscribed to the SSE notifications service');
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Origin', 'https://mfarrow701.github.io');
     res.header('Access-Control-Expose-Headers', '*');
     res.header('Access-Control-Allow-Credentials', true);
     res.writeHead(200, {
